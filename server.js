@@ -36,6 +36,7 @@ app.get('/all-posts', authenticateToken, authorize([Role.Admin]), (req, res) => 
   res.json(posts)
 })
 
+
 function authenticateToken(req, res, next) {
   const authHeader = req.headers['authorization']
   const token = authHeader && authHeader.split(' ')[1]
@@ -48,6 +49,7 @@ function authenticateToken(req, res, next) {
     next()
   })
 }
+
 
 function authorize(roles = []) {
   if (typeof roles === 'string') {
