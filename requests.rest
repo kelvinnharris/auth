@@ -1,8 +1,12 @@
-### Get Post for a user
+### Get Post for current user
 GET http://localhost:3000/posts
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ikt5bGUiLCJpYXQiOjE2MzQ4MTYyNjAsImV4cCI6MTYzNDgxNjI5MH0.huCxHWCmHWdCN0atenCZrLPWYGlSO_tPanNG1jO6yHo
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ikt5bGUiLCJyb2xlIjoiVXNlciIsImlhdCI6MTYzNDgxOTY1MCwiZXhwIjoxNjM0ODE5NjgwfQ.H8GEBZtoZ5w6T0-XXRgEYZfFjX6MNSV5KgbiX3ERSu8
 
 
+
+### Get all posts for all users (Admin only)
+GET http://localhost:3000/all-posts
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ikt5bGUiLCJyb2xlIjoiVXNlciIsImlhdCI6MTYzNDgxOTY1MCwiZXhwIjoxNjM0ODE5NjgwfQ.H8GEBZtoZ5w6T0-XXRgEYZfFjX6MNSV5KgbiX3ERSu8
 
 
 
@@ -11,7 +15,7 @@ DELETE http://localhost:4000/logout
 Content-Type: application/json
 
 {
-  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ikt5bGUiLCJpYXQiOjE2MzQ4MTYyNTJ9.G3UKGcPxXuyjdEm-xYsYUuaetgnBLfjnzq8J_CnPkY0"
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkppbSIsImlhdCI6MTYzNDgxNzE2MH0.tkMpT6QQjlpDmeypUuZDYlj3jOVBlB_4yN0ear0hFbg"
 }
 
 
@@ -20,7 +24,7 @@ POST http://localhost:4000/token
 Content-Type: application/json
 
 {
-  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ikt5bGUiLCJpYXQiOjE2MzQ4MTYyNTJ9.G3UKGcPxXuyjdEm-xYsYUuaetgnBLfjnzq8J_CnPkY0"
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkFkbWluIiwicm9sZSI6IkFkbWluIiwiaWF0IjoxNjM0ODE5NjIzfQ.EPDYjARxikMDyelVRh19dxzABsJdUYdl9I0bKyZLXt0"
 }
 
 
@@ -29,8 +33,8 @@ POST http://localhost:4000/login
 Content-Type: application/json
 
 {
-  "username": "Jim",
-  "password": "jim123"
+  "username": "Admin",
+  "password": "admin123"
 }
 
 
@@ -49,8 +53,9 @@ POST http://localhost:4000/register
 Content-Type: application/json
 
 {
-  "username": "Jim",
-  "password": "jim123"
+  "username": "Admin",
+  "password": "admin123",
+  "role": "Admin"
 }
 
 
@@ -60,7 +65,8 @@ Content-Type: application/json
 
 {
   "username": "Kyle",
-  "password": "kyle123"
+  "password": "kyle123",
+  "role": "User"
 }
 
 

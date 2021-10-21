@@ -31,34 +31,37 @@ app.post('/register', async (req, res) => {
 
     const user = {
       username: req.body.username,
-      password: hashedPassword
+      password: hashedPassword,
+      role: req.body.role
     }
 
     users.push(user)
-    res.status(201).send('Register successful')
+    res.status(201).json({ message: 'Register successful' })
   } catch {
-    res.status(500).send('Register failed')
+    res.status(500).json({ message: 'Register failed' })
   }
 })
 
-const authenticate = async (req, res, next) => {
+const login = async (req, res, next) => {
   const user = users.find(user => user.username == req.body.username)
-  if (user == null) return res.status(400).send('Cannot find user')
+  if (user == null) return res.status(400).json({ message: 'Cannot find user' })
 
   try {
     if (await bcrypt.compare(req.body.password, user.password)) {
       next()
     } else {
-      res.status(403).send('Not authenticated')
+      res.status(403).json({ message: 'Not authenticated, wrong password' })
     }
   } catch {
-    res.status(500).send()
+    res.status(500).json({ message: 'Server error' })
   }
 }
 
-app.post('/login', authenticate, (req, res) => {
+const generateToken = (req, res) => {
   const username = req.body.username
-  user = { username: username }
+  const role = users.filter(u => u.username === username)[0].role
+  const user = { username: username, role: role }
+
   const accessToken = generateAccessToken(user)
   const refreshToken = generateRefreshToken(user)
 
@@ -66,12 +69,14 @@ app.post('/login', authenticate, (req, res) => {
   console.log(refreshTokens)
 
   res.json({ accessToken: accessToken, refreshToken: refreshToken })
-})
+}
+
+app.post('/login', login, generateToken)
 
 app.delete('/logout', (req, res) => {
   refreshTokens = refreshTokens.filter(rt => rt !== req.body.token)
   console.log(refreshTokens)
-  res.status(204).send('Logout successful')
+  res.status(204).json({ message: 'Logout successful' })
 })
 
 // Use refreshToken to generate new accessToken
@@ -84,7 +89,9 @@ app.post('/token', (req, res) => {
 
   jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, user) => {
     if (err) return res.sendStatus(403);
-    const accessToken = generateAccessToken({ username: user.username });
+    user = { username: user.username, role: user.role }
+
+    const accessToken = generateAccessToken(user);
     res.json({ accessToken: accessToken })
   })
 })
