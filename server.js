@@ -17,12 +17,12 @@ const posts = [
     title: 'Admin\'s 2nd post'
   },
   {
-    username: 'Kyle',
-    title: 'Kyle\'s 1st post'
+    username: 'User',
+    title: 'User\'s 1st post'
   },
   {
-    username: 'Kyle',
-    title: 'Kyle\'s 2nd post'
+    username: 'User',
+    title: 'User\'s 2nd post'
   },
 ]
 
@@ -44,7 +44,7 @@ function authenticateToken(req, res, next) {
   if (token == null) return res.sendStatus(401); // not authorized
 
   jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
-    if (err) return res.status(403).json({ message: 'Access token expired, please reauthenticate' })
+    if (err) return res.status(401).json({ message: 'Access token expired, please reauthenticate' })
     req.user = user // contains role
     next()
   })
@@ -58,10 +58,8 @@ function authorize(roles = []) {
 
   return [
     (req, res, next) => {
-      console.log(roles)
-      console.log(req.user.role)
       if (roles.length && !roles.includes(req.user.role)) {
-        return res.status(401).json({ message: 'Role is unauthorized' })
+        return res.status(403).json({ message: 'Role is unauthorized' })
       }
       next();
     }

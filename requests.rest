@@ -1,34 +1,36 @@
-### Get Post for current user
+### 1. Get Post for current user (access token)
 GET http://localhost:3000/posts
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ikt5bGUiLCJyb2xlIjoiVXNlciIsImlhdCI6MTYzNDgxOTY1MCwiZXhwIjoxNjM0ODE5NjgwfQ.H8GEBZtoZ5w6T0-XXRgEYZfFjX6MNSV5KgbiX3ERSu8
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkFkbWluIiwicm9sZSI6IkFkbWluIiwiaWF0IjoxNjM1NzU1MDUxLCJleHAiOjE2MzU3NTUwODF9.l-TtDWuHt3ItTNC9IvRFwZuTPNdv464x2iGNDIQYd3M
 
 
 
-### Get all posts for all users (Admin only)
+
+### 2. Get all posts for all users (Admin only)
 GET http://localhost:3000/all-posts
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ikt5bGUiLCJyb2xlIjoiVXNlciIsImlhdCI6MTYzNDgxOTY1MCwiZXhwIjoxNjM0ODE5NjgwfQ.H8GEBZtoZ5w6T0-XXRgEYZfFjX6MNSV5KgbiX3ERSu8
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkFkbWluIiwicm9sZSI6IkFkbWluIiwiaWF0IjoxNjM1NzU1MDUxLCJleHAiOjE2MzU3NTUwODF9.l-TtDWuHt3ItTNC9IvRFwZuTPNdv464x2iGNDIQYd3M
 
 
 
-### Remove refresh token in db
+
+### 3. Remove refresh token in db
 DELETE http://localhost:4000/logout
 Content-Type: application/json
 
 {
-  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkppbSIsImlhdCI6MTYzNDgxNzE2MH0.tkMpT6QQjlpDmeypUuZDYlj3jOVBlB_4yN0ear0hFbg"
-}
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlVzZXIiLCJyb2xlIjoiVXNlciIsImlhdCI6MTYzNTc1NDM3MX0.vt9ZKDacyaIFK7JlAMMveWF10TWDHgoZzo5qp1mxZ9g"
+  }
 
 
-### Get new access token based on refresh token
+### 4. Get new access token based on refresh token
 POST http://localhost:4000/token
 Content-Type: application/json
 
 {
-  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkFkbWluIiwicm9sZSI6IkFkbWluIiwiaWF0IjoxNjM0ODE5NjIzfQ.EPDYjARxikMDyelVRh19dxzABsJdUYdl9I0bKyZLXt0"
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlVzZXIiLCJyb2xlIjoiVXNlciIsImlhdCI6MTYzNTc1NDk3MX0.1bQ93A80V2bgzaWvp77IBD1A5jzZqdPFObz8FNs0dTc"
 }
 
 
-### Login 1
+### 5. Login 1 (Admin)
 POST http://localhost:4000/login
 Content-Type: application/json
 
@@ -38,17 +40,17 @@ Content-Type: application/json
 }
 
 
-### Login 2
+### 6. Login 2 (User)
 POST http://localhost:4000/login
 Content-Type: application/json
 
 {
-  "username": "Kyle",
-  "password": "kyle123"
+  "username": "User",
+  "password": "user123"
 }
 
 
-### Register 1
+### 7. Register 1 (Admin)
 POST http://localhost:4000/register
 Content-Type: application/json
 
@@ -59,20 +61,20 @@ Content-Type: application/json
 }
 
 
-### Register 2
+### 8. Register 2 (User)
 POST http://localhost:4000/register
 Content-Type: application/json
 
 {
-  "username": "Kyle",
-  "password": "kyle123",
+  "username": "User",
+  "password": "user123",
   "role": "User"
 }
 
-
-### Get users
+### Helper requests
+### 9. Get users
 GET http://localhost:4000/users
 
 
-### Get refreshTokens
+### 10. Get refreshTokens
 GET http://localhost:4000/refresh_tokens
